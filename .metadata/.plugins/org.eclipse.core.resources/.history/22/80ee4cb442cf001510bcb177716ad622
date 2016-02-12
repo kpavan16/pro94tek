@@ -1,0 +1,36 @@
+package com.pms.security.company.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pms.company.bean.Company;
+import com.pms.company.dataaccess.manager.ICompanyManagementDataAccessManager;
+import com.pms.company.exeception.PMSException;
+import com.pms.company.helper.CompanyHelper;
+import com.pms.company.modal.CompanyModal;
+
+@Service ("companyManagementService")
+public class CompanyManagementServiceImpl {
+
+	@Autowired
+	private ICompanyManagementDataAccessManager companyManagementDataAccessManager;
+
+	public CompanyModal getCompany(String id) throws PMSException {
+		CompanyHelper chelper = new CompanyHelper();
+		CompanyModal cModal = chelper.createCompanyModal(companyManagementDataAccessManager.getCompany(id));
+		return ;
+	}
+
+	public void createCompany(Company company) throws PMSException {
+		companyManagementDataAccessManager.createCompany(company);
+	}
+
+	public void deleteCompany(Company company) throws PMSException {
+		companyManagementDataAccessManager.deleteCompany(company);
+	}
+
+	public void updateCompany(Company company) throws PMSException {
+		companyManagementDataAccessManager.updateComapny(company);
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.pms.company.modal;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class CompanyModal implements Serializable{
+
+
+	private static final long serialVersionUID = -3333766176633731955L;
+	
+	private Long id;
+	private String companyName;
+	private String displayName;
+	private String signatureInNameOf;
+	private String mailingAddress;
+	private String billingAddress;
+	private String corporateAddress;
+	private Date dateOfIncorporation;
+	private String logo;
+	private Long mobileNo;
+	private Long landLineNo;
+	private String email;
+	private Boolean isDealer;
+	private Boolean isRetailer;
+
+}

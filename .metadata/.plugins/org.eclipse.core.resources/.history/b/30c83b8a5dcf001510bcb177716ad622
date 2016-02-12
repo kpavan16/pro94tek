@@ -1,0 +1,13 @@
+package com.pms.inventory.helper;
+
+import com.pms.inventory.modal.CategoryModal;
+
+public class CategoryHelper {
+	
+	
+	public CategoryModal createCategoryModal(){
+		return null;
+		
+	}
+
+}

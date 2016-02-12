@@ -1,0 +1,12 @@
+package com.pms.company.modal;
+
+import java.io.Serializable;
+
+public class CompanyModal implements Serializable{
+
+
+	private static final long serialVersionUID = -3333766176633731955L;
+	
+	
+
+}

@@ -1,0 +1,104 @@
+package com.pms.company.modal;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+public class CompanyModal implements Serializable{
+
+
+	private static final long serialVersionUID = -3333766176633731955L;
+	
+	private Long id;
+	private String companyName;
+	private String displayName;
+	private String signatureInNameOf;
+	private List<Address> address;
+	private Date dateOfIncorporation;
+	private String logo;
+	private Long mobileNo;
+	private Long landLineNo;
+	private String email;
+	private Boolean isDealer;
+	private Boolean isRetailer;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getDisplayName() {
+		return displayName;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	public String getSignatureInNameOf() {
+		return signatureInNameOf;
+	}
+	public void setSignatureInNameOf(String signatureInNameOf) {
+		this.signatureInNameOf = signatureInNameOf;
+	}
+	
+	
+	
+	
+	public List<Address> getAddress() {
+		return address;
+	}
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+	public Date getDateOfIncorporation() {
+		return dateOfIncorporation;
+	}
+	public void setDateOfIncorporation(Date dateOfIncorporation) {
+		this.dateOfIncorporation = dateOfIncorporation;
+	}
+	public String getLogo() {
+		return logo;
+	}
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	public Long getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo(Long mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+	public Long getLandLineNo() {
+		return landLineNo;
+	}
+	public void setLandLineNo(Long landLineNo) {
+		this.landLineNo = landLineNo;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Boolean getIsDealer() {
+		return isDealer;
+	}
+	public void setIsDealer(Boolean isDealer) {
+		this.isDealer = isDealer;
+	}
+	public Boolean getIsRetailer() {
+		return isRetailer;
+	}
+	public void setIsRetailer(Boolean isRetailer) {
+		this.isRetailer = isRetailer;
+	}
+	
+	
+	
+
+}

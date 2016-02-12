@@ -1,0 +1,33 @@
+package com.pms.inventory.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.pms.inventory.service.IInvetoryDataManagmentService;
+import com.pms.inventory.service.IInvetoryDataRetrivalService;
+import com.pms.utils.CommonUtils;
+import com.pms.utils.ResponseMessages;
+
+
+
+@Controller
+public class InventorySetup {
+
+	
+	private static final Logger logger = LoggerFactory.getLogger(InventorySetup.class);
+	
+	@Autowired
+	IInvetoryDataManagmentService inventoryMasterService;
+	
+	@Autowired
+	IInvetoryDataRetrivalService  invetoryDataRetrivalService;
+	
+	CommonUtils commonUtils = new CommonUtils();
+	ResponseMessages message = new ResponseMessages();
+	InventoryRequestResponse response = new InventoryRequestResponse();
+	
+	
+	
+}

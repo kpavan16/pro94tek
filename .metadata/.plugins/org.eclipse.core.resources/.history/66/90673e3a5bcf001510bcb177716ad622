@@ -1,0 +1,22 @@
+package com.pms.inventory.modal;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+public class CategoryModal {
+
+	
+	
+	   private Long             id;
+	   private String           categoryName;
+	   private String           description;
+	   private String           createdBy;
+	   private Date             createdDate;
+	   private List<SubCategoryModal> subCategories;
+	   
+	   
+	   
+	   
+	
+}

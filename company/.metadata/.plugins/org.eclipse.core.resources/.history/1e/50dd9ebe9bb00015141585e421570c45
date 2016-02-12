@@ -1,0 +1,188 @@
+package pro94tek.company.controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import pro94tek.company.beans.MenuCategoryBean;
+import pro94tek.company.common.CommonUtils;
+import pro94tek.company.common.ResponseMessages;
+import pro94tek.company.common.eResturantRequestResponse;
+import pro94tek.company.entity.MenuCategory;
+import pro94tek.company.service.intf.MenuCategoryServicesIntf;
+
+/**
+ * Handles requests for the MenuCategory service.
+ */
+@Controller
+public class MenuController {
+
+	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+
+	@Autowired
+	MenuCategoryServicesIntf menuCategoryService;
+
+	CommonUtils commonUtils = new CommonUtils();
+	eResturantRequestResponse response = new eResturantRequestResponse();
+	MenuCategoryBean menuCategoryBean = new MenuCategoryBean();
+
+	// Map to store MenuCategories, ideally we should use database
+	Map<Integer, MenuCategory> menuData = new HashMap<Integer, MenuCategory>();
+
+	@RequestMapping(value = eResturantRestURIConstants.GET_MENU_CATEGORY, method = RequestMethod.GET)
+	public @ResponseBody eResturantRequestResponse getMenuCategory(@PathVariable("id") String categoryId) {
+
+		logger.info("Start getMenuCategory. ID=" + categoryId);
+
+		try {
+			menuCategoryBean = menuCategoryService.fetchMenuCategory(categoryId);
+
+			logger.info("Successfully fetched the record.." + menuCategoryBean);
+			response = commonUtils.createResponseData("", ResponseMessages.GENERALL_FETCH_SUCCESS,
+					ResponseMessages.SUCCESS, "1", menuCategoryBean);
+
+		} catch (DataAccessException dae) {
+			logger.error("Error while fetching the record" + categoryId);
+			dae.printStackTrace();
+			response = commonUtils.createResponseData(dae.getMessage(), ResponseMessages.GENERALL_FETCH_FAIL,
+					ResponseMessages.FAIL, "0", menuCategoryBean);
+		} catch (Exception e) {
+			logger.error("Unknown exception while fetching the record" + categoryId);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_FETCH_FAIL,
+					ResponseMessages.FAIL, "0", menuCategoryBean);
+		}
+
+		return response;
+	}
+
+	@RequestMapping(value = eResturantRestURIConstants.GET_ALL_MENU_CATEGORY, method = RequestMethod.GET)
+	public @ResponseBody eResturantRequestResponse getAllMenuCategorys() {
+
+		logger.info("Start getAllMenuCategorys.");
+
+		List<MenuCategoryBean> menuList = new ArrayList<MenuCategoryBean>();
+
+		try {
+			menuList = menuCategoryService.fetchAllMenuCategory();
+
+			logger.info("Successfully fetched all the records" + menuList);
+			response = commonUtils.createResponseData("", ResponseMessages.GENERALL_FETCH_SUCCESS,
+					ResponseMessages.SUCCESS, "1", menuList);
+
+		} catch (DataAccessException dae) {
+			logger.error("Error while fetching all records");
+			dae.printStackTrace();
+			response = commonUtils.createResponseData(dae.getMessage(), ResponseMessages.GENERALL_FETCH_FAIL,
+					ResponseMessages.FAIL, "0", menuList);
+		} catch (Exception e) {
+			logger.error("Unknown error while fetching all records");
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_FETCH_FAIL,
+					ResponseMessages.FAIL, "0", menuList);
+
+		}
+
+		return response;
+	}
+
+	@RequestMapping(value = eResturantRestURIConstants.CREATE_MENU_CATEGORY, method = RequestMethod.POST)
+	public @ResponseBody eResturantRequestResponse createMenuCategory(@RequestBody MenuCategoryBean bean) {
+
+		logger.info("Start createMenuCategory.");
+		try {
+
+			if (bean != null) {
+				
+				menuCategoryBean = menuCategoryService.fetchMenuCategory(Integer.toString(bean.getId()));
+				
+				System.out.println(menuCategoryBean);
+
+				if (menuCategoryBean == null) {
+					bean.setCreatedDate(new Date());
+					menuCategoryBean = menuCategoryService.insertMenuCategory(bean);
+					logger.info("Successfully inserted the record" + bean);
+					response = commonUtils.createResponseData("", ResponseMessages.GENERALL_INSERT_SUCCESS,ResponseMessages.SUCCESS, "1", menuCategoryBean);
+				} else {
+					logger.info("Record already exist" + bean.getId());
+					response = commonUtils.createResponseData("Record Already Exist", ResponseMessages.GENERALL_INSERT_FAIL,ResponseMessages.FAIL, "0", menuCategoryBean);
+				}
+				
+			}else{
+				logger.info("Data validation failure..Invalid Bean" + bean);
+				response = commonUtils.createResponseData("Invalid Bean", ResponseMessages.GENERALL_INSERT_FAIL,ResponseMessages.FAIL, "0", menuCategoryBean);
+			}
+
+		} catch (DataAccessException e) {
+			logger.error("Error while inserting the record..." + bean);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_INSERT_FAIL,
+					ResponseMessages.FAIL, "0", bean);
+		} catch (Exception e) {
+			logger.error("Unknown error while inserting the record..." + bean);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_INSERT_FAIL,
+					ResponseMessages.FAIL, "0", bean);
+		}
+
+		return response;
+
+	}
+
+	@RequestMapping(value = eResturantRestURIConstants.DELETE_MENU_CATEGORY, method = RequestMethod.PUT)
+	public @ResponseBody eResturantRequestResponse deleteMenuCategory(@PathVariable("id") String beanId) {
+	
+		logger.info("Start deleteMenuCategory.");
+		
+		try {
+			menuCategoryBean = menuCategoryService.fetchMenuCategory(beanId);
+
+			if (menuCategoryBean != null && menuCategoryService.deleteMenuCategory(beanId)) {
+				logger.info("Successfully deleted the record" + beanId);
+				response = commonUtils.createResponseData("", ResponseMessages.GENERAL_DELETE_SUCCESS,ResponseMessages.SUCCESS, "1", beanId);
+			} else {
+				logger.info("Record doesn't exist or unknown error while deleting the record..." + beanId);
+				response = commonUtils.createResponseData("Record doesn't exist or unknown error while deleting the record...", ResponseMessages.GENERAL_DELETE_FAIL,ResponseMessages.FAIL, "0", beanId);
+			}
+			
+		} catch (DataAccessException e) {
+			logger.error("Error while deleting the record..." + beanId);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERAL_DELETE_FAIL, ResponseMessages.FAIL, "0", beanId);
+		} catch (Exception e) {
+			logger.error("Unknown error while inserting the record..." + beanId);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERAL_DELETE_FAIL, ResponseMessages.FAIL, "0", beanId);
+		}
+		
+		return response;
+	}
+
+	@RequestMapping(value = eResturantRestURIConstants.DUMMY_EMP, method = RequestMethod.POST)
+	public @ResponseBody MenuCategory getDummyMenuCategory() {
+		logger.info("Start getDummyMenuCategory");
+		MenuCategory menuCategory = new MenuCategory();
+		menuCategory.setId(1010);
+		menuCategory.setCategoryname("Chinese");
+		// menuCategory.setCreatedDate(new Date());
+		menuCategory.setDescription("Chinese Food");
+		menuCategory.setStatus("Y");
+		menuCategory.setCreatedBy("Shiva");
+		// menuData.put(9999, menuCategory);
+		return menuCategory;
+	}
+
+}

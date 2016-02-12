@@ -1,0 +1,21 @@
+package com.pms.company.modal;
+
+import java.io.Serializable;
+
+public class Address implements Serializable {
+	
+	
+	private static final long serialVersionUID = -6476176639106273151L;
+	
+	public String id;
+	public String addressType;
+	public String addressLine1;
+	public String addressLine2;
+	public String zip;
+	public String city;
+	public String state;
+	public String country;
+	public String district;
+	public String status;
+
+}

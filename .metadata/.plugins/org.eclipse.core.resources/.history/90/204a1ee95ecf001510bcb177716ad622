@@ -1,0 +1,15 @@
+package com.pms.inventory.helper;
+
+import com.pms.inventory.bean.SubCategory;
+import com.pms.inventory.modal.SubCategoryModal;
+
+public class SubCategoryHelper {
+	
+	
+	public SubCategoryModal createSubCategoryModal(SubCategory subCategory){
+		
+		return null;
+	}
+	
+
+}

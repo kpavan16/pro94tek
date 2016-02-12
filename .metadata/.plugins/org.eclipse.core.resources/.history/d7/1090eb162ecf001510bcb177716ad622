@@ -1,0 +1,18 @@
+package com.pms.company.modal;
+
+public class Address {
+	
+	public String id;
+	public String addressType;
+	public String addressLine1;
+	public String addressLine2;
+	public String zip;
+	public String city;
+	public String state;
+	public String country;
+	public String district;
+	public String status;
+	
+	
+
+}

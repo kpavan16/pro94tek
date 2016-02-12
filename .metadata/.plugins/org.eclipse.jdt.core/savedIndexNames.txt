@@ -1,0 +1,8 @@
+INDEX VERSION 1.127+D:\Personal\Pharmacy\.metadata\.plugins\org.eclipse.jdt.core
+503322990.index
+3757232952.index
+3979854596.index
+423594276.index
+3703845538.index
+3776008823.index
+1510723615.index

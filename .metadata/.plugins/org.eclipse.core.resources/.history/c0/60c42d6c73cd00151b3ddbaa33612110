@@ -1,0 +1,18 @@
+package pro94tek.ehotel.common;
+
+public class CommonUtils {
+	
+	public eResturantRequestResponse  createResponseData(String comments,String responseMessage,String status,String recordCount,Object data){
+	
+		eResturantRequestResponse response = new eResturantRequestResponse();
+		
+		response.setComments(comments);
+		response.setData(data);
+		response.setRecordCount(recordCount);
+		response.setResponseMessage(responseMessage);
+		response.setStatus(status);
+		
+		return response;
+	}
+
+}

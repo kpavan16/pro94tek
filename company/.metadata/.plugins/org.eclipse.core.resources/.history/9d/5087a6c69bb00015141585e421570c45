@@ -1,0 +1,18 @@
+package pro94tek.company.common;
+
+public class CommonUtils {
+	
+	public CompanyRequestResponse  createResponseData(String comments,String responseMessage,String status,String recordCount,Object data){
+	
+		companyRequestResponse response = new CompanyRequestResponse();
+		
+		response.setComments(comments);
+		response.setData(data);
+		response.setRecordCount(recordCount);
+		response.setResponseMessage(responseMessage);
+		response.setStatus(status);
+		
+		return response;
+	}
+
+}

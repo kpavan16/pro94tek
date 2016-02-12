@@ -1,0 +1,11 @@
+package com.pms.utils;
+
+public class CompanySetupConstant {
+	
+	public static final String DUMMY_EMP = "/rest/emp/dummy";
+	public static final String GET_MENU_CATEGORY = "/rest/menucategory/{id}";
+	public static final String GET_ALL_MENU_CATEGORY = "/rest/allmenucategory";
+	public static final String CREATE_MENU_CATEGORY = "/rest/menucategory/create";
+	public static final String DELETE_MENU_CATEGORY = "/rest/menucategory/delete/{id}";
+
+}

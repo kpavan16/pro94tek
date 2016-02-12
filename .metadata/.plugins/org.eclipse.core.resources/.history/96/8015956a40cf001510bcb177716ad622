@@ -1,0 +1,13 @@
+package com.pms.company.helper;
+
+import com.pms.company.bean.Company;
+
+public class CompanyHelper {
+	
+	
+	public Company createCompanyEntity(){
+		return null;
+		
+	}
+
+}

@@ -1,0 +1,25 @@
+package com.pms.company.helper;
+
+import com.pms.company.bean.Company;
+import com.pms.company.modal.CompanyModal;
+
+public class CompanyHelper {
+	
+	
+	public Company createCompanyEntity(CompanyModal companyModal){
+		Company company = new Company();
+		company.setCompanyName(companyName);
+		company.setDateOfIncorporation(dateOfIncorporation);
+		company.setDisplayName(displayName);
+		company.setEmail(email);
+		company.setId(id);
+		company.setIsDealer(isDealer);
+		company.setIsRetailer(isRetailer);
+		company.setLandLineNo(landLineNo);
+		company.setLogo(logo);
+		company.setSignatureInNameOf(signatureInNameOf);
+		company.setMobileNo(mobileNo);
+		return null;
+	}
+
+}

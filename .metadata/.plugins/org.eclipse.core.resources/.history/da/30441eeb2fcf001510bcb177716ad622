@@ -1,0 +1,54 @@
+package com.pms.company.restcontroller;
+
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.pms.company.modal.CompanyModal;
+import com.pms.company.service.ICompanyManagementService;
+import com.pms.utils.CommonUtils;
+import com.pms.utils.CompanySetupRequestResponse;
+import com.pms.utils.ResponseMessages;
+
+@Controller
+public class SetupProcess {
+
+	private static final Logger logger = LoggerFactory.getLogger(SetupProcess.class);
+	
+	
+	@Autowired
+	ICompanyManagementService companyService;
+	
+	
+	CommonUtils commonUtils = new CommonUtils();
+	ResponseMessages message = new ResponseMessages();
+	CompanySetupRequestResponse response = new CompanySetupRequestResponse();
+	CompanyModal companyModal = new CompanyModal();
+	
+	Map<Integer, CompanyModal> companyData = new HashMap<Integer, CompanyModal>();
+	
+	@RequestMapping(value = eResturantRestURIConstants.DUMMY_EMP, method = RequestMethod.GET)
+	public @ResponseBody CompanyModal getDummyMenuCategory() {
+		logger.info("Start getDummyMenuCategory");
+		CompanyModal companyCategory = new CompanyModal();
+		
+		companyData.put(9999, companyCategory);
+		return companyCategory;
+	}
+	
+}

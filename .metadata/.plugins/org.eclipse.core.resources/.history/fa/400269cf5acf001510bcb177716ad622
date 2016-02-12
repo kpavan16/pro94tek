@@ -1,0 +1,5 @@
+package com.pms.inventory.modal;
+
+public class SubCategoryModal {
+
+}

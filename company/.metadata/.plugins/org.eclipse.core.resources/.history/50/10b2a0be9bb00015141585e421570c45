@@ -1,0 +1,101 @@
+package pro94tek.company.controller;
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import pro94tek.company.beans.MenuSubCategoryBean;
+import pro94tek.company.common.CommonUtils;
+import pro94tek.company.common.ResponseMessages;
+import pro94tek.company.common.eResturantRequestResponse;
+import pro94tek.company.entity.MenuSubCategory;
+import pro94tek.company.service.intf.MenuSubCategoryServicesIntf;
+
+/**
+ * 
+ * @author shipenme
+ *
+ *         Handles all the SubMenu operations..
+ * 
+ */
+
+@Controller
+public class MenuSubController {
+
+	private static final Logger logger = LoggerFactory.getLogger(MenuSubController.class);
+
+	@Autowired
+	MenuSubCategoryServicesIntf menuSubCategoryService;
+
+	CommonUtils commonUtils = new CommonUtils();
+	eResturantRequestResponse response = new eResturantRequestResponse();
+	MenuSubCategoryBean menuSubBean = new MenuSubCategoryBean();
+
+	@RequestMapping(value = eResturantRestURIConstants.CREATE_MENU_SUB_CATEGORY, method = RequestMethod.POST)
+	public @ResponseBody eResturantRequestResponse createMenuSubCategory(@RequestBody MenuSubCategoryBean bean) {
+
+		logger.info("Start createMenuSubCategory.");
+		try {
+
+			if (bean != null) {
+
+				menuSubBean = menuSubCategoryService.fetchSubMenuCategory(Integer.toString(bean.getId()));
+
+				if (menuSubBean == null) {
+					bean.setCreatedDate(new Date());
+					menuSubBean = menuSubCategoryService.insertSubMenuCategory(bean);
+					logger.info("Successfully inserted the record" + bean);
+					response = commonUtils.createResponseData("", ResponseMessages.GENERALL_INSERT_SUCCESS,
+							ResponseMessages.SUCCESS, "1", menuSubBean);
+				} else {
+					logger.info("Record already exist" + bean.getId());
+					response = commonUtils.createResponseData("Record Already Exist",
+							ResponseMessages.GENERALL_INSERT_FAIL, ResponseMessages.FAIL, "0", menuSubBean);
+				}
+
+			} else {
+				logger.info("Data validation failure..Invalid Bean" + bean);
+				response = commonUtils.createResponseData("Invalid Bean", ResponseMessages.GENERALL_INSERT_FAIL,
+						ResponseMessages.FAIL, "0", menuSubBean);
+			}
+
+		} catch (DataAccessException e) {
+			logger.error("Error while inserting the record..." + bean);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_INSERT_FAIL,
+					ResponseMessages.FAIL, "0", bean);
+		} catch (Exception e) {
+			logger.error("Unknown error while inserting the record..." + bean);
+			e.printStackTrace();
+			response = commonUtils.createResponseData(e.getMessage(), ResponseMessages.GENERALL_INSERT_FAIL,
+					ResponseMessages.FAIL, "0", bean);
+		}
+
+		return response;
+
+	}
+
+	public @ResponseBody MenuSubCategory getDummyMenuSubCategory() {
+
+		logger.info("Start getDummyMenuCategory");
+
+		MenuSubCategory menuSub = new MenuSubCategory();
+
+		menuSub.setId(1001);
+		menuSub.setCategoryId(1006);
+		menuSub.setSubcategoryname("Chinese Noodles");
+		menuSub.setDescription("Chinese noodles");
+		menuSub.setStatus("Y");
+		menuSub.setCreatedBy("Shiva");
+		return menuSub;
+	}
+
+}

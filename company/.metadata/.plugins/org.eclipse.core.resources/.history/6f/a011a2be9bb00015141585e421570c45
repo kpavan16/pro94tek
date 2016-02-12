@@ -1,0 +1,35 @@
+/**
+ * 
+ */
+/**
+ * @author shipenme
+ *
+ */
+package pro94tek.company.test;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import pro94tek.company.beans.MenuSubCategoryBean;
+import pro94tek.company.common.eResturantRequestResponse;
+import pro94tek.company.controller.MenuSubController;
+import pro94tek.company.service.helper.SubMenuHelper;
+
+public class Test{
+	public static void main(String[] args) {
+//		/company/src/main/resources/spring/appServlet/company-context.xml
+		
+		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/appServlet/company-context.xml");
+
+		MenuSubController controller =(MenuSubController) context.getBean("menuSubController");
+		
+		MenuSubCategoryBean menuBen = SubMenuHelper.setMenuSubCategoryBean((controller.getDummyMenuSubCategory()));
+		
+		eResturantRequestResponse response = controller.createMenuSubCategory(menuBen);
+		
+		System.out.println("Response"+response);
+		
+		context.close();
+		
+	}
+}

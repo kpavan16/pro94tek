@@ -1,0 +1,9 @@
+package com.pms.company.modal;
+
+import java.io.Serializable;
+
+public class CompanyModal implements Serializable{
+	
+	
+
+}

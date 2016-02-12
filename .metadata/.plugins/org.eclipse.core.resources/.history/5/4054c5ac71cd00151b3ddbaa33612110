@@ -1,0 +1,5 @@
+package com.pms.company.restcontroller;
+
+public class SetupProcess {
+
+}
